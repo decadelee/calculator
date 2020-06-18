@@ -6,7 +6,7 @@
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>一达通出口TAO3N新客计算器</title>
+    <title>跨境供应链出口综合服务(TAO3N)新客启航计算器</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -39,7 +39,7 @@
                   <option value="3">3星</option>
                   <option value="2">2星</option>
                   <option value="1">1星</option>
-                  <option value="0">0星</option>
+                  <option value="1">0星</option>
                 </select>
             </div>
   	        <div class="form-group">
@@ -72,26 +72,23 @@
         <caption>权益</caption>
         <tbody>
           <tr class="info">
-            <td>通关和收汇服务</td>
-            <td id="serviceRight" colspan="2"></td>
+            <td style="white-space: nowrap;">通关和收汇服务</td>
+            <td id="serviceRight" colspan="2" style="text-align: right;"></td>
           </tr>
           <tr class="info">
             <td>退税垫资款</td>
-            <td id="returnBilling"></td>
-            <td>人民币</td>
+            <td id="returnBilling"  style="text-align: right;"></td>
           </tr>
           <tr class="info">
             <td>结汇返利</td>
-            <td id="returnProfit"></td>
-            <td>人民币</td>
+            <td id="returnProfit"  style="text-align: right;"></td>
           </tr>
           <tr class="info">
             <td style="text-align: right; color:#e2861a;">共计</td>
-            <td id="total"></td>
-            <td>人民币</td>
+            <td id="total" style="text-align: right;"></td>
           </tr>
           <tr class="info">
-            <td>额外权益</td>
+            <td>叠加权益</td>
             <td id="extraProfit" colspan="2"></td>
           </tr>
         </tbody>
@@ -102,17 +99,15 @@
         <tbody>
           <tr class="info">
             <td>TAO3N服务费</td>
-            <td id="serviceBilling"></td>
-            <td>人民币</td>
+            <td id="serviceBilling" style="text-align: right;"></td>
           </tr>
           <tr class="info">
             <td style="text-align: right; color:#e2861a;">比市场平均收费便宜</td>
-            <td id="lessThanAvg"></td>
-            <td>人民币</td>
+            <td id="lessThanAvg"  style="text-align: right;"></td>
           </tr>
         </tbody>
       </table>
-      
+
       <table class="table" id="remarkTable">
         <caption>注：</caption>
         <tbody>
@@ -133,6 +128,8 @@
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
     </div>
   </body>
 </html>
@@ -142,7 +139,6 @@
     $("#rightTable").hide();
     $("#billingTable").hide();
     $("#remarkTable").hide();
-    
     var nua = navigator.userAgent
     var isAndroid = (nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1 && nua.indexOf('Chrome') === -1)
     if (isAndroid) {
@@ -167,12 +163,12 @@
           returnProfit = currentBilling * 0.008;
       }
       total = returnProfit + returnBilling;
-      $("#returnBilling").val(returnBilling.toFixed(2));
-      $("#returnBilling").text(returnBilling.toFixed(2));
-      $("#returnProfit").text(returnProfit.toFixed(2));
-      $("#returnProfit").val(returnProfit.toFixed(2));
-      $("#total").val(total.toFixed(2));
-      $("#total").text(total.toFixed(2));
+      $("#returnBilling").val(returnBilling.toFixed(2) + " 人民币");
+      $("#returnBilling").text(returnBilling.toFixed(2) + " 人民币");
+      $("#returnProfit").text(returnProfit.toFixed(2) + " 人民币");
+      $("#returnProfit").val(returnProfit.toFixed(2) + " 人民币");
+      $("#total").val(total.toFixed(2) + " 人民币");
+      $("#total").text(total.toFixed(2) + " 人民币");
       if (startLevel >= 3) {
           $("#extraProfit").val("基础服务费5折优惠+优客极速退");
           $("#extraProfit").text("基础服务费5折优惠+优客极速退");
@@ -192,10 +188,10 @@
       }
 
       lessThanAvg = currentBilling * 0.06 * 1.06 - serviceBilling;
-      $("#serviceBilling").val(serviceBilling.toFixed(2));
-      $("#serviceBilling").text(serviceBilling.toFixed(2));
-      $("#lessThanAvg").val(lessThanAvg.toFixed(2));
-      $("#lessThanAvg").text(lessThanAvg.toFixed(2));
+      $("#serviceBilling").val(serviceBilling.toFixed(2) + " 人民币");
+      $("#serviceBilling").text(serviceBilling.toFixed(2) + " 人民币");
+      $("#lessThanAvg").val(lessThanAvg.toFixed(2) + " 人民币");
+      $("#lessThanAvg").text(lessThanAvg.toFixed(2) + " 人民币");
 
       $("#serviceRight").val("  ✔️ ");
       $("#serviceRight").text("  ✔️ ");
