@@ -112,6 +112,21 @@
           </tr>
         </tbody>
       </table>
+      
+      <table class="table" id="remarkTable">
+        <caption>注：</caption>
+        <tbody>
+          <tr class="default">
+            <td>1）结汇返利仅限通过一达通结汇订单；</td>
+          </tr>
+          <tr class="default">
+            <td>2）本计算器中征税率、退税率均按13%，汇率按1美金=7人民币；</td>
+          </tr>
+          <tr class="default">
+            <td>3）以上计算结果仅供参考，具体资费以实际订单核定为准。</td>
+          </tr>
+        </tbody>
+      </table>
 
     <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
@@ -126,6 +141,8 @@
   $(function () {
     $("#rightTable").hide();
     $("#billingTable").hide();
+    $("#remarkTable").hide();
+    
     var nua = navigator.userAgent
     var isAndroid = (nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1 && nua.indexOf('Chrome') === -1)
     if (isAndroid) {
@@ -184,6 +201,7 @@
       $("#serviceRight").text("  ✔️ ");
       $("#rightTable").show();
       $("#billingTable").show();
+      $("#remarkTable").show();
   });
 
   $("#resetButton").click(function () {
@@ -205,6 +223,7 @@
     $("#serviceRight").val("");
     $("#rightTable").hide();
     $("#billingTable").hide();
+    $("#remarkTable").hide();
   });
 
 </script>
