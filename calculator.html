@@ -3,20 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>一达通3N出口新客计算器</title>
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
-    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-    <![endif]-->
   <body>
     <img src="img3.jpeg" class="img-responsive center-block" style="max-width:600px;width:100%;">
 
@@ -28,7 +19,7 @@
   	           <label for="name">本次订单金额</label>
                <div class="input-group">
   	              <input type="number" class="form-control" id="currentBilling" style="border-right-width: 0px;" placeholder="请输入">
-                  <span class="input-group-addon" style="background-color: white;">美元</span>
+                  <span class="input-group-addon" style="background-color: white;">美金</span>
                 </div>
             </div>
             <div class="form-group">
@@ -46,7 +37,7 @@
               <label for="name">预计本季度出口金额</label>
               <div class="input-group">
                 <input type="number" class="form-control" id="lastQuarterBilling" style="border-right-width: 0px;" placeholder="请输入">
-                <span class="input-group-addon" style="background-color: white;">美元</span>
+                <span class="input-group-addon" style="background-color: white;">美金</span>
               </div>
             </div>
 
@@ -59,14 +50,10 @@
         </form>
       </div>
 
-
       <div class="text-center">
         <label for="colFormLabelSm" class="col-form-label text-center"></label>
       </div>
-      <div class="text-center">
-        <!-- <label for="colFormLabelSm" class="col-form-label text-center">权益</label> -->
-      </div>
-
+      <div class="text-center"></div>
 
       <table class="table table-bordered" id="rightTable">
         <caption>权益</caption>
@@ -80,7 +67,7 @@
             <td id="returnBilling"  style="text-align: right;"></td>
           </tr>
           <tr class="info">
-            <td>结汇返利 (满足结汇条件准入后下季度可享受)</td>
+            <td>结汇返利 (满足结汇条件准入后下季度订单可享受)</td>
             <td id="returnProfit"  style="text-align: right;"></td>
           </tr>
           <tr class="info">
@@ -101,6 +88,17 @@
             <td>本次订单总服务费</td>
             <td id="serviceBilling" style="text-align: right;"></td>
           </tr>
+
+          <tr class="info">
+            <td style="text-align: right;">其中，基础服务费</td>
+            <td id="baseServiceFee"  style="text-align: right;"></td>
+          </tr>
+
+          <tr class="info">
+            <td style="text-align: right;">退税垫资费</td>
+            <td id="refundTaxFee"  style="text-align: right;"></td>
+          </tr>
+
           <tr class="info">
             <td style="text-align: right; color:#e2861a;">比市场平均收费便宜</td>
             <td id="lessThanAvg"  style="text-align: right;"></td>
@@ -118,7 +116,13 @@
             <td>2）本计算器中征税率、退税率均按13%，汇率按1美金=7人民币；</td>
           </tr>
           <tr class="default">
-            <td>3）以上计算结果仅供参考，具体资费以实际订单核定为准。</td>
+            <td>3）本次订单总服务费、基础服务费、退税垫资费均包含6%增值税；</td>
+          </tr>
+          <tr class="default">
+            <td>4）市场平均收费按每出口1美金收费6分人民币*1.06计算；</td>
+          </tr>
+          <tr class="default">
+            <td>5）以上计算结果仅供参考，具体资费以实际订单核定为准。</td>
           </tr>
         </tbody>
       </table>
@@ -176,23 +180,35 @@
       }
       var serviceBilling = 0;
       var lessThanAvg = 0;
+      var refundTaxFee = 0;
+      var baseServiceFee = 0;
 
       if (currentBilling < 13334) {
           serviceBilling = 200 * 1.06 * 0.5 + returnBilling * 0.025 * 1.06;
+          baseServiceFee = 200 * 1.06 * 0.5;
       } else if (currentBilling >= 13334 && currentBilling < 40000) {
           serviceBilling = currentBilling * 0.015 * 1.06 * 0.5 + returnBilling * 0.025 * 1.06;
+          baseServiceFee = currentBilling * 0.015 * 1.06 * 0.5;
       } else {
           serviceBilling = 600 * 1.06 * 0.5 + returnBilling * 0.025 * 1.06;
+          baseServiceFee = 600 * 1.06 * 0.5;
       }
+
+      refundTaxFee = returnBilling * 0.025 * 1.06;
 
       lessThanAvg = currentBilling * 0.06 * 1.06 - serviceBilling;
       if (lessThanAvg < 0) {
-        lessThanAvg = 0; 
+        lessThanAvg = 0;
       }
       $("#serviceBilling").val(serviceBilling.toFixed(2) + " 人民币");
       $("#serviceBilling").text(serviceBilling.toFixed(2) + " 人民币");
       $("#lessThanAvg").val(lessThanAvg.toFixed(2) + " 人民币");
       $("#lessThanAvg").text(lessThanAvg.toFixed(2) + " 人民币");
+
+      $("#baseServiceFee").val(baseServiceFee.toFixed(2) + " 人民币");
+      $("#baseServiceFee").text(baseServiceFee.toFixed(2) + " 人民币");
+      $("#refundTaxFee").val(refundTaxFee.toFixed(2) + " 人民币");
+      $("#refundTaxFee").text(refundTaxFee.toFixed(2) + " 人民币");
 
       $("#serviceRight").val("  ✔️ ");
       $("#serviceRight").text("  ✔️ ");
