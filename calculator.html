@@ -80,7 +80,7 @@
             <td id="returnBilling"  style="text-align: right;"></td>
           </tr>
           <tr class="info">
-            <td>结汇返利</td>
+            <td>结汇返利 (满足结汇条件准入后下季度可享受)</td>
             <td id="returnProfit"  style="text-align: right;"></td>
           </tr>
           <tr class="info">
@@ -186,6 +186,9 @@
       }
 
       lessThanAvg = currentBilling * 0.06 * 1.06 - serviceBilling;
+      if (lessThanAvg < 0) {
+        lessThanAvg = 0; 
+      }
       $("#serviceBilling").val(serviceBilling.toFixed(2) + " 人民币");
       $("#serviceBilling").text(serviceBilling.toFixed(2) + " 人民币");
       $("#lessThanAvg").val(lessThanAvg.toFixed(2) + " 人民币");
