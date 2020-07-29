@@ -138,8 +138,7 @@
     </div>
     
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv" style='display:none'></span></span>
-    <span id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv" style='display:none'></span></span>
+    <span id="busuanzi_container_site_pv"><span id="busuanzi_value_site_pv"></span></span>
   </body>
 </html>
 
@@ -154,8 +153,7 @@
       $('select.form-control').removeClass('form-control').css('width', '100%')
     }
     
-    console.log("pv=" + $("#busuanzi_value_site_pv").val());
-    console.log("uv=" + $("#busuanzi_value_site_uv").val());
+    console.log("访问量：" + $("#busuanzi_value_site_pv").text());
   });
 
   $("#calculateButton").click(function () {
